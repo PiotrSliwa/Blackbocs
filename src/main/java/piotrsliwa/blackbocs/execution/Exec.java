@@ -1,6 +1,6 @@
-package piotrsliwa.blackbocs.tester;
+package piotrsliwa.blackbocs.execution;
 
-public interface Sut extends Runnable {
+public interface Exec extends Runnable {
 
     public boolean errorOccured();
     public boolean isRunning();

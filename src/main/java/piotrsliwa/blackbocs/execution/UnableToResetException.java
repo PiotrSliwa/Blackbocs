@@ -1,4 +1,4 @@
-package piotrsliwa.blackbocs.tester;
+package piotrsliwa.blackbocs.execution;
 
 public class UnableToResetException extends RuntimeException {
     

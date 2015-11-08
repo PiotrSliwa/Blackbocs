@@ -1,13 +1,12 @@
-package piotrsliwa.blackbocs.tester;
+package piotrsliwa.blackbocs.execution;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class CustomCommandSutTest {
+public class CustomCommandExecTest {
     
     private final static String DUMMY_COMMAND = "dummyCommand";
     
@@ -15,7 +14,7 @@ public class CustomCommandSutTest {
     private final Process processMock = mock(Process.class);
     private final InputStream inputStreamMock = mock(InputStream.class);
     
-    private final CustomCommandSut sut = new CustomCommandSut(DUMMY_COMMAND, runtimeMock);
+    private final CustomCommandExec sut = new CustomCommandExec(DUMMY_COMMAND, runtimeMock);
     
     private void configSuccessfulCommandExecution() throws IOException {
         when(runtimeMock.exec(any(String.class))).thenReturn(processMock);
@@ -36,10 +35,10 @@ public class CustomCommandSutTest {
     
     @Test
     public void shallNotBeRunningAndErrorOccuredShallReturnTrueWhenNullCommandProvided() {
-        CustomCommandSut customSut = new CustomCommandSut(null, null);
-        customSut.run();
-        assertFalse(customSut.isRunning());
-        assertTrue(customSut.errorOccured());
+        CustomCommandExec sut = new CustomCommandExec(null, null);
+        sut.run();
+        assertFalse(sut.isRunning());
+        assertTrue(sut.errorOccured());
     }
     
     @Test
@@ -52,7 +51,7 @@ public class CustomCommandSutTest {
     }
     
     @Test
-    public void finishShallNotDoAnythingWhenSutIsNotRun() throws IOException {
+    public void finishShallNotDoAnythingWhenExecIsNotRun() throws IOException {
         configSuccessfulCommandExecution();
         sut.finish();
         verify(processMock, never()).destroy();
@@ -60,7 +59,7 @@ public class CustomCommandSutTest {
     }
     
     @Test
-    public void shallBeAbleToFinishSutProcess() throws IOException {
+    public void shallBeAbleToFinishExecProcess() throws IOException {
         configSuccessfulCommandExecution();
         sut.run();
         sut.finish();

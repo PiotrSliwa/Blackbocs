@@ -1,4 +1,4 @@
-package piotrsliwa.blackbocs.tester;
+package piotrsliwa.blackbocs.execution;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,13 +6,14 @@ import java.util.concurrent.Callable;
 
 public class ConsoleOutputCollector implements OutputCollector {
     
-    private final ConsoleOutputProvider outputProvider;
+    private static final int DEFAULT_QUERY_DELAY_MS = 100;
+    
     private final Thread standardOutputCollectingThread;
     private final Thread errorOutputCollectingThread;
     
+    private Delayer queryDelayer = new Delayer(DEFAULT_QUERY_DELAY_MS);
     private List<String> standardOutput = new ArrayList<>();
     private List<String> errorOutput = new ArrayList<>();
-    private int queryInterval = 100;
     
     private class Collector implements Runnable {
         
@@ -31,7 +32,7 @@ public class ConsoleOutputCollector implements OutputCollector {
                     String line = reader.call();
                     if (line != null && !line.isEmpty())
                         targetList.add(line);
-                    Thread.sleep(queryInterval);
+                    queryDelayer.sleep();
                 } catch (Exception ex) {
                     return;
                 }
@@ -40,7 +41,6 @@ public class ConsoleOutputCollector implements OutputCollector {
     }
 
     public ConsoleOutputCollector(ConsoleOutputProvider outputProvider) {
-        this.outputProvider = outputProvider;
         this.standardOutputCollectingThread = new Thread(new Collector(standardOutput, () -> {
             return outputProvider.readLineFromStandardOutput();
         }));
@@ -48,13 +48,9 @@ public class ConsoleOutputCollector implements OutputCollector {
             return outputProvider.readLineFromErrorOutput();
         }));
     }
-    
-    public void setQueryInterval(int milliseconds) {
-        queryInterval = milliseconds;
-    }
-    
-    public int getQueryInterval() {
-        return queryInterval;
+
+    public void setQueryDelayer(Delayer queryDelayer) {
+        this.queryDelayer = queryDelayer;
     }
 
     public List<String> getStandardOutput() {
