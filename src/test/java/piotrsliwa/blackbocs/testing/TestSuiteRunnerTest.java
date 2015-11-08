@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.mockito.InOrder;
 import static org.mockito.Mockito.*;
-import piotrsliwa.blackbocs.Action;
-import piotrsliwa.blackbocs.ActionFailedException;
+import piotrsliwa.blackbocs.execution.Action;
+import piotrsliwa.blackbocs.execution.ActionFailedException;
 
 public class TestSuiteRunnerTest {
     

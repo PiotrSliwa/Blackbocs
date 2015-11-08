@@ -1,4 +1,4 @@
-package piotrsliwa.blackbocs;
+package piotrsliwa.blackbocs.execution;
 
 public class ActionFailedException extends Exception {
     

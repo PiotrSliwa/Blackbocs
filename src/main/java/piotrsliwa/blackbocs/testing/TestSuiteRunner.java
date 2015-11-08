@@ -3,8 +3,8 @@ package piotrsliwa.blackbocs.testing;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import piotrsliwa.blackbocs.Action;
-import piotrsliwa.blackbocs.ActionFailedException;
+import piotrsliwa.blackbocs.execution.Action;
+import piotrsliwa.blackbocs.execution.ActionFailedException;
 
 public class TestSuiteRunner {
     
