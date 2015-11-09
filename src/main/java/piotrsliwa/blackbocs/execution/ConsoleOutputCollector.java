@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 public class ConsoleOutputCollector implements OutputCollector {
-    
+
     private static final int DEFAULT_QUERY_DELAY_MS = 100;
-    
+
     private final Thread standardOutputCollectingThread;
     private final Thread errorOutputCollectingThread;
-    
+
     private Delayer queryDelayer = new Delayer(DEFAULT_QUERY_DELAY_MS);
     private List<String> standardOutput = new ArrayList<>();
     private List<String> errorOutput = new ArrayList<>();
-    
+
     private class Collector implements Runnable {
-        
+
         private final List<String> targetList;
         private final Callable<String> reader;
 
@@ -78,5 +78,5 @@ public class ConsoleOutputCollector implements OutputCollector {
         standardOutputCollectingThread.start();
         errorOutputCollectingThread.start();
     }
-    
+
 }

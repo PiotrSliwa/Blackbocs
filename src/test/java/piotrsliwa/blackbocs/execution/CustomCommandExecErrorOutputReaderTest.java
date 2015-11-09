@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class CustomCommandExecErrorOutputReaderTest {
-    
+
     private final CustomCommandExec customExecMock = mock(CustomCommandExec.class);
     private final CustomCommandExecErrorOutputReader sut = new CustomCommandExecErrorOutputReader(customExecMock);
 
@@ -16,5 +16,5 @@ public class CustomCommandExecErrorOutputReaderTest {
         when(customExecMock.readLineFromErrorOutput()).thenReturn(str);
         assertEquals(str, sut.call());
     }
-    
+
 }

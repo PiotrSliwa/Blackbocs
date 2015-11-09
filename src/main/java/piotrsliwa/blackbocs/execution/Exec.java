@@ -6,7 +6,7 @@ public interface Exec extends Runnable {
     public boolean isRunning();
     public boolean isFinished();
     public void finish();
-    
+
     @Override
     public void run();
 }

@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class CustomCommandExecStandardOutputReaderTest {
-    
+
     private final CustomCommandExec customExecMock = mock(CustomCommandExec.class);
     private final CustomCommandExecStandardOutputGetter sut = new CustomCommandExecStandardOutputGetter(customExecMock);
 
@@ -15,5 +15,5 @@ public class CustomCommandExecStandardOutputReaderTest {
         when(customExecMock.readLineFromStandardOutput()).thenReturn(str);
         assertEquals(str, sut.call());
     }
-    
+
 }

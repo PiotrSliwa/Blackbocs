@@ -1,7 +1,7 @@
 package piotrsliwa.blackbocs.execution;
 
 public class Delayer {
-    
+
     private int delay;
 
     public Delayer(int delay) {
@@ -15,9 +15,9 @@ public class Delayer {
     public void setDelay(int delay) {
         this.delay = delay;
     }
-    
+
     public void sleep() throws InterruptedException {
         Thread.sleep(delay);
     }
-    
+
 }

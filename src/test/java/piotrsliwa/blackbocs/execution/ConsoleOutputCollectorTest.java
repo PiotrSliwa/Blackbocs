@@ -9,15 +9,15 @@ import org.junit.Before;
 import static org.mockito.Mockito.*;
 
 public class ConsoleOutputCollectorTest {
-    
+
     private static final String STRING_1 = "smellycat";
     private static final String STRING_2 = "doggycoin";
     private static final String NULL_STRING = null;
-    
+
     private final ConsoleOutputProvider consoleOutputProviderMock = mock(ConsoleOutputProvider.class);
     private final Delayer queryDelayerMock = mock(Delayer.class);
     private final ConsoleOutputCollector sut = new ConsoleOutputCollector(consoleOutputProviderMock);
-    
+
     private void sleepForADummySafePeriodOfTime() {
         try {
             Thread.sleep(100);
@@ -25,18 +25,18 @@ public class ConsoleOutputCollectorTest {
             Logger.getLogger(ConsoleOutputCollectorTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void runSutAndSleepForAWhileJustToBeSafe() {
         sut.run();
         sleepForADummySafePeriodOfTime();
     }
-    
+
     private void assertContainsTwoMemberStrings(List<String> output) {
         assertEquals(2, output.size());
         assertEquals(STRING_1, output.get(0));
         assertEquals(STRING_2, output.get(1));
     }
-    
+
     @Before
     public void setQueryDelayer() {
         sut.setQueryDelayer(queryDelayerMock);
@@ -50,7 +50,7 @@ public class ConsoleOutputCollectorTest {
         verify(queryDelayerMock, atLeast(3)).sleep();
         sut.finish();
     }
-    
+
     @Test
     public void shallNotCollectNullNorEmptyStandardOutput() throws InterruptedException {
         String emptyString = "";
@@ -60,7 +60,7 @@ public class ConsoleOutputCollectorTest {
         verify(queryDelayerMock, atLeast(3)).sleep();
         sut.finish();
     }
-    
+
     @Test
     public void shallReturnCollectedErrorOutput() throws InterruptedException {
         when(consoleOutputProviderMock.readLineFromErrorOutput()).thenReturn(STRING_1, STRING_2, NULL_STRING);
@@ -69,7 +69,7 @@ public class ConsoleOutputCollectorTest {
         verify(queryDelayerMock, atLeast(3)).sleep();
         sut.finish();
     }
-    
+
     @Test
     public void shallNotCollectNullNorEmptyErrorOutput() throws InterruptedException {
         String emptyString = "";
@@ -79,7 +79,7 @@ public class ConsoleOutputCollectorTest {
         verify(queryDelayerMock, atLeast(3)).sleep();
         sut.finish();
     }
-    
+
     @Test
     public void bothStandardAndErrorCollectedOutputsShallBeCleared() throws InterruptedException {
         String str = "dummyString";
@@ -92,5 +92,5 @@ public class ConsoleOutputCollectorTest {
         assertEquals(0, sut.getErrorOutput().size());
         assertEquals(0, sut.getStandardOutput().size());
     }
-    
+
 }

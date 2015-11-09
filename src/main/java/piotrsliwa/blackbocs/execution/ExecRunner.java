@@ -4,14 +4,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ExecRunner {
-    
+
     private static final int DEFAULT_QUERY_DELAY_MS = 100;
-    
+
     private final Exec exec;
     private final StateReseter stateReseter;
     private final ReadinessCondition readinessChecker;
     private final OutputCollector outputCollector;
-    
+
     private Delayer queryDelayer = new Delayer(DEFAULT_QUERY_DELAY_MS);
 
     public ExecRunner(
@@ -28,7 +28,7 @@ public class ExecRunner {
     public void setQueryDelayer(Delayer queryDelayer) {
         this.queryDelayer = queryDelayer;
     }
-    
+
     public void run() throws ExecFinishedButNotReadyException, ExecutionException, ExecNotProvidedException {
         if (exec == null)
             throw new ExecNotProvidedException();
@@ -48,25 +48,25 @@ public class ExecRunner {
             }
         }
     }
-    
+
     public boolean isExecReady() {
         if (readinessChecker != null)
             return readinessChecker.isReady();
         return true;
     }
-    
+
     public void reset() throws UnableToResetException {
         if (stateReseter != null && !stateReseter.reset())
             throw new UnableToResetException();
         if (outputCollector != null)
             outputCollector.clear();
     }
-    
+
     public void kill() {
         if (exec != null)
             exec.finish();
         if (outputCollector != null)
             outputCollector.finish();
     }
-    
+
 }

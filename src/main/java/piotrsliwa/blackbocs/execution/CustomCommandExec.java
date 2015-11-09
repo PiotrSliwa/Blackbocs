@@ -10,7 +10,7 @@ public class CustomCommandExec implements Exec, ConsoleOutputProvider {
 
     private final String command;
     private final Runtime runtime;
-    
+
     private Process process;
     private BufferedReader bufferedExecStdOutput;
     private BufferedReader bufferedExecErrOutput;
@@ -26,17 +26,17 @@ public class CustomCommandExec implements Exec, ConsoleOutputProvider {
         this.command = command;
         this.runtime = runtime;
     }
-    
+
     @Override
     public boolean errorOccured() {
         return hasErrorOccured;
     }
-    
+
     @Override
     public boolean isRunning() {
         return process != null && process.isAlive();
     }
-    
+
     @Override
     public boolean isFinished() {
         return !isRunning() && hasBeenStarted;
@@ -72,7 +72,7 @@ public class CustomCommandExec implements Exec, ConsoleOutputProvider {
     public String readLineFromErrorOutput() {
         return readLine(bufferedExecErrOutput);
     }
-    
+
     private String readLine(BufferedReader reader) {
         if (reader != null) {
             try {
@@ -85,5 +85,5 @@ public class CustomCommandExec implements Exec, ConsoleOutputProvider {
         }
         return "";
     }
-    
+
 }
