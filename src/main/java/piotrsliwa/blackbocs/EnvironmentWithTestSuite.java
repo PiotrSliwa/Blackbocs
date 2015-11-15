@@ -12,6 +12,8 @@ public class EnvironmentWithTestSuite extends Environment {
 
     @Override
     void run() throws Exception {
+        if (testSuite == null)
+            throw new NullTestSuiteException();
         environment.run();
         testSuite.runAllTests();
     }

@@ -4,8 +4,8 @@ import piotrsliwa.blackbocs.execution.Exec;
 
 public class EmptyEnvironment {
 
-    public EnvironmentWithSutConfigurable withSut(Exec sut) {
-        return new EnvironmentWithSutConfigurable(sut);
+    public EnvironmentWithSut withSut(Exec sut) {
+        return new EnvironmentWithSut(sut);
     }
 
 }

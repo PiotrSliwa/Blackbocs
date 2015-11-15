@@ -1,25 +1,24 @@
 package piotrsliwa.blackbocs;
 
+import piotrsliwa.blackbocs.execution.Exec;
 import piotrsliwa.blackbocs.execution.ExecRunner;
 
 public class EnvironmentWithSut extends Environment {
 
-    private final Environment environment;
-    private final ExecRunner execRunner;
+    private final Exec sut;
 
-    EnvironmentWithSut(Environment environment, ExecRunner execRunner) {
-        this.environment = environment;
-        this.execRunner = execRunner;
-    }
-
-    public EnvironmentWithTestSuite withTestSuite(Object testContainer) {
-        return new EnvironmentWithTestSuite(this, new TestSuite(testContainer));
+    EnvironmentWithSut(Exec sut) {
+        this.sut = sut;
     }
 
     @Override
     void run() throws Exception {
-        environment.run();
+        ExecRunner execRunner = new ExecRunner(sut, null, null, null);
         execRunner.run();
+    }
+
+    EnvironmentWithTestSuite withTestSuite(TestSuite testSuite) {
+        return new EnvironmentWithTestSuite(this, testSuite);
     }
 
 }
